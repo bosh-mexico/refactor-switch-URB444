@@ -1,35 +1,49 @@
-from enum import Enum
+from enum import Enum, auto
 
-# Define Payment Modes
 class PaymentMode(Enum):
-    PAYPAL = 1
-    GOOGLEPAY = 2
-    CREDITCARD = 3
-    UNKNOWN = 99
+    PAYPAL = "PayPal"
+    GOOGLEPAY = "GooglePay"
+    CREDITCARD = "CreditCard"
 
-# Checkout function
-def checkout(mode: PaymentMode, amount: float):
-    match mode:
-        case PaymentMode.PAYPAL:
-            print(f"Processing PayPal payment of ${amount:.2f}")
-            # Add PayPal-specific logic here
+class PaymentError(Exception):
+    """Exception raised for payment processing errors."""
+    pass
 
-        case PaymentMode.GOOGLEPAY:
-            print(f"Processing GooglePay payment of ${amount:.2f}")
-            # Add GooglePay-specific logic here
-
-        case PaymentMode.CREDITCARD:
-            print(f"Processing Credit Card payment of ${amount:.2f}")
-            # Add Credit Card-specific logic here
-
-        case _:
-            print("Invalid payment mode selected!")
-
-# Example usage
-if __name__ == "__main__":
-    amount = 150.75
-
-    checkout(PaymentMode.PAYPAL, amount)
-    checkout(PaymentMode.GOOGLEPAY, amount)
-    checkout(PaymentMode.CREDITCARD, amount)
-    checkout(PaymentMode.UNKNOWN, amount)
+def checkout(payment_mode: PaymentMode, amount: float) -> bool:
+    """
+    Process a payment using the specified payment mode and amount.
+    
+    Args:
+        payment_mode: The payment mode to use
+        amount: The amount to be processed
+        
+    Returns:
+        True if payment was successful
+        
+    Raises:
+        PaymentError: If payment mode is invalid or amount is not positive
+    """
+    # Validate amount
+    if amount <= 0:
+        raise PaymentError(f"Invalid payment amount: {amount}. Amount must be positive.")
+    
+    # Process payment based on payment mode
+    if not isinstance(payment_mode, PaymentMode):
+        raise PaymentError(f"Unsupported payment mode: {payment_mode}")
+    
+    # Process payment based on the mode
+    if payment_mode == PaymentMode.PAYPAL:
+        print(f"Processing PayPal payment of ${amount:.2f}")
+        # Future integration with PayPal API would go here
+    elif payment_mode == PaymentMode.GOOGLEPAY:
+        print(f"Processing GooglePay payment of ${amount:.2f}")
+        # Future integration with GooglePay API would go here
+    elif payment_mode == PaymentMode.CREDITCARD:
+        print(f"Processing CreditCard payment of ${amount:.2f}")
+        # Future integration with Credit Card processing API would go here
+    else:
+        # This shouldn't happen due to the isinstance check, but as a fallback
+        raise PaymentError(f"Unsupported payment mode: {payment_mode.value}")
+    
+    print(f"Payment of ${amount:.2f} via {payment_mode.value} processed successfully!")
+    return True
