@@ -12,9 +12,9 @@ Feature: Payment Processing System
 
     Examples:
       | payment_mode | amount  |
-      | PAYPAL       | 100.50  |
-      | GOOGLEPAY    | 75.25   |
-      | CREDITCARD   | 250.00  |
+      | PaymentMode.PAYPAL       | 100.50  |
+      | PaymentMode.GOOGLEPAY    | 75.25   |
+      | PaymentMode.CREDITCARD   | 250.00  |
 
   Scenario: Checkout with unsupported payment mode
     Given the customer has items in their cart
