@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Sep 28 15:13:41 2025
-
-@author: HUZ1KOR
-"""
 
 from enum import Enum
 import importlib
@@ -40,3 +34,11 @@ def checkout(payment_mode: PaymentMode, amount: float) -> bool:
 
     print(f"Payment of ${amount:.2f} via {payment_mode.name} processed successfully!")
     return result
+
+if __name__ == '__main__':
+    amount = 150.75
+
+    checkout(PaymentMode.PAYPAL, amount)
+    checkout(PaymentMode.GOOGLEPAY, amount)
+    checkout(PaymentMode.CREDITCARD, amount)
+    checkout(PaymentMode.UNKNOWN, amount)

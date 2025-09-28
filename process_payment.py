@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Sep 28 15:43:32 2025
 
-@author: HUZ1KOR
-"""
 import importlib
 checkout_module = importlib.import_module("checkout_items")
 validation_module = importlib.import_module("validate_inputs")
@@ -15,11 +10,11 @@ class PaymentProcessor:
 
     def process(self):
         processors = {
-            checkout_module.PaymentMode.PAYPAL: self.process_using_paypal,
-            checkout_module.PaymentMode.GOOGLEPAY: self.process_using_gpay,
-            checkout_module.PaymentMode.CREDITCARD: self.process_using_credit
+            "PAYPAL": self.process_using_paypal,
+            "GOOGLEPAY": self.process_using_gpay,
+            "CREDITCARD": self.process_using_credit
         }
-        processor = processors.get(self.payment_mode, self._process_default)
+        processor = processors.get(self.payment_mode.name, self.process_default)
         return processor(self.amount)
 
     def process_using_paypal(self, amount):
