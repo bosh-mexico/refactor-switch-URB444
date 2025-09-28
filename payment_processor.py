@@ -1,9 +1,10 @@
 from enum import Enum, auto
 
 class PaymentMode(Enum):
-    PAYPAL = "PayPal"
-    GOOGLEPAY = "GooglePay"
-    CREDITCARD = "CreditCard"
+    PAYPAL = 1
+    GOOGLEPAY = 2
+    CREDITCARD = 3
+    UNKNOWN = 99
 
 class PaymentError(Exception):
     """Exception raised for payment processing errors."""
