@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Sep 28 15:15:14 2025
-
-@author: HUZ1KOR
-"""
 from checkout_items import PaymentMode
 
 class PaymentError(Exception):
@@ -16,3 +10,4 @@ def input_validation(amount,payment_mode):
 
     if not isinstance(payment_mode, PaymentMode):
         raise PaymentError(f"Unsupported payment mode: {payment_mode}")
+
