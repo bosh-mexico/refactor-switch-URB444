@@ -1,0 +1,35 @@
+
+from enum import Enum
+import importlib
+validation_module = importlib.import_module("validate_inputs")
+payment_module = importlib.import_module("process_payment")
+
+class PaymentMode(Enum):
+    PAYPAL = 1
+    GOOGLEPAY = 2
+    CREDITCARD = 3
+    UNKNOWN = 99
+
+def checkout(payment_mode: PaymentMode, amount: float) -> bool:
+    """
+    Process a payment using the specified payment mode and amount.
+
+    """
+    # Validate inputs
+    validation_module.validate_amount(amount)
+    validation_module.validate_payment_mode(payment_mode)
+
+    # Create payment processor and process payment
+    processor = payment_module.PaymentProcessor(payment_mode, amount)
+    result = processor.process()
+
+    print(f"Payment of ${amount:.2f} via {payment_mode.name} processed successfully!")
+    return result
+
+if __name__ == '__main__':
+    amount = 150.75
+
+    checkout(PaymentMode.PAYPAL, amount)
+    checkout(PaymentMode.GOOGLEPAY, amount)
+    checkout(PaymentMode.CREDITCARD, amount)
+    checkout(PaymentMode.UNKNOWN, amount)
