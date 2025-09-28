@@ -14,18 +14,7 @@ def checkout(payment_mode: PaymentMode, amount: float) -> bool:
     """
     Process a payment using the specified payment mode and amount.
 
-    Args:
-        payment_mode: The payment mode to use
-        amount: The amount to be processed
-
-    Returns:
-        True if payment was successful
-
-    Raises:
-        PaymentError: If payment mode is invalid or amount is not positive
     """
-    print("payment_mode : ",payment_mode)
-    print("payment_mode : ",type(payment_mode))
     # Validate inputs
     validation_module.validate_amount(amount)
     validation_module.validate_payment_mode(payment_mode)
@@ -36,3 +25,11 @@ def checkout(payment_mode: PaymentMode, amount: float) -> bool:
 
     print(f"Payment of ${amount:.2f} via {payment_mode.name} processed successfully!")
     return result
+
+if __name__ == '__main__':
+    amount = 150.75
+
+    checkout(PaymentMode.PAYPAL, amount)
+    checkout(PaymentMode.GOOGLEPAY, amount)
+    checkout(PaymentMode.CREDITCARD, amount)
+    checkout(PaymentMode.UNKNOWN, amount)
