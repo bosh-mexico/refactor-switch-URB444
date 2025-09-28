@@ -15,7 +15,7 @@ def step_impl(context, amount):
 @when('the customer selects {payment_mode} as the payment mode')
 def step_impl(context, payment_mode):
     try:
-        context.payment_mode = PaymentMode(payment_mode)
+        context.payment_mode = PaymentMode(payment_mode.upper())
     except ValueError:
         context.payment_mode = payment_mode  # Store as string for error testing
 
