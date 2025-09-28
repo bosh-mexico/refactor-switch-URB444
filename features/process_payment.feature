@@ -23,7 +23,14 @@ Feature: Payment Processing System
     Then the system should handle the error gracefully
     And an error message should be displayed about invalid payment mode
 
-  Scenario: Checkout with zero or negative amount
+  Scenario: Checkout with zero amount
+    Given the customer has items in their cart
+    And the payment amount is 0.00
+    When the customer selects GooglePay as the payment mode
+    Then the system should handle the error gracefully
+    And an error message should be displayed about invalid amount
+    
+  Scenario: Checkout with negative amount
     Given the customer has items in their cart
     And the payment amount is -10.00
     When the customer selects PayPal as the payment mode
