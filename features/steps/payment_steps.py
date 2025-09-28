@@ -1,5 +1,6 @@
 from behave import given, when, then
-from payment_processor import PaymentMode, checkout, PaymentError
+from validate_inputs import PaymentError
+from checkout_items import PaymentMode, checkout
 
 @given('the customer has items in their cart')
 def step_impl(context):
