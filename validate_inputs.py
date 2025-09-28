@@ -4,7 +4,8 @@ Created on Sun Sep 28 15:15:14 2025
 
 @author: HUZ1KOR
 """
-from checkout_items import PaymentMode
+import importlib
+checkout_module = importlib.import_module("checkout_items")
 
 class PaymentError(Exception):
     """Exception raised for payment processing errors."""
@@ -15,5 +16,5 @@ def validate_amount(amount):
         raise PaymentError(f"Invalid payment amount: {amount}. Amount must greater than 0")
 
 def validate_payment_mode(payment_mode):
-    if not isinstance(payment_mode, PaymentMode):
+    if not isinstance(payment_mode, checkout_module.PaymentMode):
         raise PaymentError(f"Unsupported payment mode: {payment_mode}")

@@ -1,5 +1,12 @@
-from checkout_items import PaymentMode
-from validate_inputs import PaymentError
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Sep 28 15:43:32 2025
+
+@author: HUZ1KOR
+"""
+import importlib
+checkout_module = importlib.import_module("checkout_items")
+validation_module = importlib.import_module("validate_inputs")
 
 class PaymentProcessor:
     def __init__(self, payment_mode, amount):
@@ -8,9 +15,9 @@ class PaymentProcessor:
 
     def process(self):
         processors = {
-            PaymentMode.PAYPAL: self.process_using_paypal,
-            PaymentMode.GOOGLEPAY: self.process_using_gpay,
-            PaymentMode.CREDITCARD: self.process_using_credit
+            checkout_module.PaymentMode.PAYPAL: self.process_using_paypal,
+            checkout_module.PaymentMode.GOOGLEPAY: self.process_using_gpay,
+            checkout_module.PaymentMode.CREDITCARD: self.process_using_credit
         }
         processor = processors.get(self.payment_mode, self._process_default)
         return processor(self.amount)
@@ -31,5 +38,4 @@ class PaymentProcessor:
         return True
 
     def process_default(self, amount):
-        raise PaymentError(f"Unsupported payment mode: {self.payment_mode.name}")
-
+        raise validation_module.PaymentError(f"Unsupported payment mode: {self.payment_mode.name}")

@@ -4,9 +4,11 @@ Created on Sun Sep 28 15:13:41 2025
 
 @author: HUZ1KOR
 """
+
 from enum import Enum
-import validate_inputs
-from process_payment import PaymentProcessor
+import importlib
+validation_module = importlib.import_module("validate_inputs")
+payment_module = importlib.import_module("process_payment")
 
 class PaymentMode(Enum):
     PAYPAL = 1
@@ -29,11 +31,11 @@ def checkout(payment_mode: PaymentMode, amount: float) -> bool:
         PaymentError: If payment mode is invalid or amount is not positive
     """
     # Validate inputs
-    validate_inputs.validate_amount(amount)
-    validate_inputs.validate_payment_mode(payment_mode)
+    validation_module.validate_amount(amount)
+    validation_module.validate_payment_mode(payment_mode)
 
     # Create payment processor and process payment
-    processor = PaymentProcessor(payment_mode, amount)
+    processor = payment_module.PaymentProcessor(payment_mode, amount)
     result = processor.process()
 
     print(f"Payment of ${amount:.2f} via {payment_mode.name} processed successfully!")
