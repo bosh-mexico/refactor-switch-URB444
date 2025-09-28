@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Sep 28 15:43:32 2025
-
-@author: HUZ1KOR
-"""
 from checkout_items import PaymentMode
 from validate_inputs import PaymentError
 
@@ -38,3 +32,4 @@ class PaymentProcessor:
 
     def process_default(self, amount):
         raise PaymentError(f"Unsupported payment mode: {self.payment_mode.name}")
+
